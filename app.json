@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "meu-povo-app",
+    "slug": "meu-povo-app",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
