@@ -2,11 +2,9 @@ import styled from "styled-components/native";
 import MapView from 'react-native-maps';
 
 export const MapContainer = styled.View`
-  flex: 1;
-  width: 100%;
-  height: 80%;
+  /* flex: 1;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: hidden; */
 `
 
 export const MapContent = styled(MapView)`
