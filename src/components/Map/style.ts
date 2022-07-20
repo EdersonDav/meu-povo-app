@@ -1,15 +1,15 @@
 import styled from "styled-components/native";
 import MapView from 'react-native-maps';
-import { Dimensions } from 'react-native';
 
 export const MapContainer = styled.View`
   flex: 1;
-  background-color: #fff;
-  align-items: center;
-  justify-content: center;
+  width: 100%;
+  height: 80%;
+  border-radius: 10px;
+  overflow: hidden;
 `
 
-export const MapContent = styled(MapView) <{ heightContante: string }>`
-  width: ${Dimensions.get('window').width};
-  height: ${({ heightContante }) => heightContante ? `calc(80 - ${heightContante})` : '100%'};
+export const MapContent = styled(MapView)`
+  width: 100%;
+  height: 100%;
 `
