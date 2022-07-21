@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { MapContainer, MapContent } from './style';
 import * as Location from 'expo-location';
-import { Alert, StyleSheet, View, Text, Dimensions } from 'react-native';
-import { VStack } from 'native-base';
+import { Alert, StyleSheet, Dimensions } from 'react-native';
+import { VStack, Image, Text } from 'native-base';
 import Constants from 'expo-constants';
 import MapView,{Marker} from 'react-native-maps';
 
+import {commerceClass} from '../../services/Commerces';
+import { ICommerce } from '../../@types/interfaces';
+
 export const Map = () => {
   const [initialPosition, setinitialPosition] = useState<[number, number]>([0, 0]);
+  const [commerces, setCommerces] = useState<ICommerce[]>([])
 
   useEffect(() => {
     async function loadPosition() {
@@ -28,11 +31,16 @@ export const Map = () => {
     loadPosition();
   }, []);
 
+  useEffect(()=>{
+    commerceClass.getAllCommerces().then((res)=>{
+      setCommerces(res);
+    })
+  },[])
+
   return (
     <>
       <VStack flex={1} alignItems="center" px={8} pt={28}>
-        <Text style={styles.title}>Bem Vindo.</Text>
-        <View style={styles.mapContainer}>
+        <VStack style={styles.mapContainer}>
           {initialPosition[0] !== 0 && (
 
             <MapView style={styles.map}
@@ -43,10 +51,27 @@ export const Map = () => {
                 longitudeDelta: 0.014,
               }}
             >
+              {commerces.map(commerce => (
+                <Marker
+                  key={String(commerce._id)}
+                  style={styles.mapMarker}
+                  // onPress={() => handleNavigateToDetail(commerce.id)}
+                  coordinate={{
+                    latitude: commerce.address.latitude,
+                    longitude: commerce.address.longitude
+                  }} >
+                  <VStack style={styles.mapMarkerContainer}>
+                    <Image
+                      style={styles.mapMarkerImage}
+                      source={{uri: commerce.image }} alt={`Image commerce ${commerce.name}`} size="sm" />
+                    <Text style={styles.mapMarkerTitle}>{commerce.name}</Text>
+                  </VStack>
+                </Marker>
+              ))}
             </MapView>
           )}
-        </View>
-        <View style={styles.title}></View>
+        </VStack>
+        <VStack style={styles.title}></VStack>
 
       </VStack>
     </>
