@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import * as Location from 'expo-location';
 import { Alert, StyleSheet, Dimensions } from 'react-native';
-import { VStack, Image, Text } from 'native-base';
+import { VStack } from 'native-base';
 import Constants from 'expo-constants';
 import MapView,{Marker} from 'react-native-maps';
-
+import Svg, { Path } from "react-native-svg"
 import {commerceClass} from '../../services/Commerces';
 import { ICommerce } from '../../@types/interfaces';
+import {Pin} from './style';
 
 export const Map = () => {
   const [initialPosition, setinitialPosition] = useState<[number, number]>([0, 0]);
@@ -54,18 +55,15 @@ export const Map = () => {
               {commerces.map(commerce => (
                 <Marker
                   key={String(commerce._id)}
-                  style={styles.mapMarker}
+                  // style={styles.mapMarker}
                   // onPress={() => handleNavigateToDetail(commerce.id)}
                   coordinate={{
                     latitude: commerce.address.latitude,
                     longitude: commerce.address.longitude
                   }} >
-                  <VStack style={styles.mapMarkerContainer}>
-                    <Image
-                      style={styles.mapMarkerImage}
-                      source={{uri: commerce.image }} alt={`Image commerce ${commerce.name}`} size="sm" />
-                    <Text style={styles.mapMarkerTitle}>{commerce.name}</Text>
-                  </VStack>
+
+                  <Pin>
+                  </Pin>
                 </Marker>
               ))}
             </MapView>
@@ -111,23 +109,20 @@ const styles = StyleSheet.create({
   },
 
   mapMarker: {
-    width: 90,
-    height: 80,
+    width: 20,
+    height: 20,
   },
 
   mapMarkerContainer: {
-    width: 90,
-    height: 70,
-    backgroundColor: '#34CB79',
-    flexDirection: 'column',
-    borderRadius: 8,
+    width: 30,
+    height: 30,
+    backgroundColor: '#333',
     overflow: 'hidden',
-    alignItems: 'center'
+    textAlign:'center'
   },
 
   mapMarkerImage: {
-    width: 90,
-    height: 45,
+    fontSize:100,
     resizeMode: 'cover',
   },
 
