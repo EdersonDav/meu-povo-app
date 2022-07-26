@@ -4,7 +4,6 @@ import { Alert, StyleSheet, Dimensions } from 'react-native';
 import { VStack } from 'native-base';
 import Constants from 'expo-constants';
 import MapView,{Marker} from 'react-native-maps';
-import Svg, { Path } from "react-native-svg"
 import {commerceClass} from '../../services/Commerces';
 import { ICommerce } from '../../@types/interfaces';
 import {Pin} from './style';
@@ -40,7 +39,7 @@ export const Map = () => {
 
   return (
     <>
-      <VStack flex={1} alignItems="center" px={8} pt={28}>
+      <VStack flex={1} alignItems="center" px={8} pt={18}>
         <VStack style={styles.mapContainer}>
           {initialPosition[0] !== 0 && (
 
