@@ -26,5 +26,15 @@ export interface IAddress {
 export interface ICategory {
   _id: string;
   name: string;
-  code: number;
+  code: string;
+}
+
+export interface ICountry {
+  name: string;
+  code: string;
+}
+
+export interface InitialValues {
+  categories: ICategory[];
+  countries: ICountry[];
 }
