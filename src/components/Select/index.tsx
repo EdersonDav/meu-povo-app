@@ -4,6 +4,9 @@ import React, { useState } from "react";
 interface SelectComponentProps{
   itens: SelectItemProps[];
   label: string;
+  service: string;
+  setService: (value: string)=> void;
+  required: boolean;
 }
 
 interface SelectItemProps{
@@ -11,15 +14,14 @@ interface SelectItemProps{
   code: string;
 }
 
-export const SelectComponent = ({label, itens}: SelectComponentProps) => {
-  let [service, setService] = useState("");
+export const SelectComponent = ({label, itens, service, setService,required}: SelectComponentProps) => {
   const safeAreaProps = useSafeArea({
     safeAreaTop: true,
   });
   return(
-    <FormControl maxW="160" m="2" {...safeAreaProps}>
+    <FormControl maxW="160" m="2" {...safeAreaProps} isRequired={required}>
       <FormControl.Label>{label}</FormControl.Label>
-      <Select selectedValue={service} minWidth="150" accessibilityLabel={label} placeholder={label} _selectedItem={{
+      <Select selectedValue={service} minWidth="150" accessibilityLabel={label} placeholder='-' _selectedItem={{
       bg: "teal.600",
       endIcon: <CheckIcon size="5" />
     }} mt={1} onValueChange={itemValue => setService(itemValue)}>

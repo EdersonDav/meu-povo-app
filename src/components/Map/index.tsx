@@ -5,13 +5,17 @@ import { VStack } from 'native-base';
 import Constants from 'expo-constants';
 import MapView,{Marker} from 'react-native-maps';
 import {commerceClass} from '../../services/Commerces';
-import { ICommerce } from '../../@types/interfaces';
+import { ICommerce, ISearch } from '../../@types/interfaces';
 import {Pin} from './style';
 
-export const Map = () => {
+interface MapProps{
+  searchParamns: ISearch;
+}
+
+export const Map = ({searchParamns}: MapProps) => {
   const [initialPosition, setinitialPosition] = useState<[number, number]>([0, 0]);
   const [commerces, setCommerces] = useState<ICommerce[]>([])
-
+  
   useEffect(() => {
     async function loadPosition() {
       const { status } = await Location.requestForegroundPermissionsAsync();
@@ -32,10 +36,12 @@ export const Map = () => {
   }, []);
 
   useEffect(()=>{
-    commerceClass.getAllCommerces().then((res)=>{
-      setCommerces(res);
-    })
-  },[])
+    if(searchParamns.nationality){
+      commerceClass.searchCommerce(searchParamns.nationality, searchParamns.category).then((res)=>{
+        setCommerces(res);
+      })
+    }
+  },[searchParamns])
 
   return (
     <>

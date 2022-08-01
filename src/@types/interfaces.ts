@@ -38,3 +38,8 @@ export interface InitialValues {
   categories: ICategory[];
   countries: ICountry[];
 }
+
+export interface ISearch {
+  nationality: string;
+  category: string;
+}
