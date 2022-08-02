@@ -26,14 +26,14 @@ export const Home = () => {
     <VStack flex={1} alignItems="center" px={8} pt={30}>
       <Flex flexDirection="row">
         <SelectComponent 
-          label="Choose commerce category" 
+          label="Commerce category" 
           itens={categories}
           service={category}
           setService={setCategory}
           required={false}
         />
         <SelectComponent 
-          label="Choose commerce country" 
+          label="Commerce country" 
           itens={countries}
           service={nationality}
           setService={setNationality}

@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import * as Location from 'expo-location';
 import { Alert, StyleSheet, Dimensions } from 'react-native';
-import { VStack } from 'native-base';
+import { VStack, Text } from 'native-base';
 import Constants from 'expo-constants';
-import MapView,{Marker} from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 import {commerceClass} from '../../services/Commerces';
 import { ICommerce, ISearch } from '../../@types/interfaces';
 import {Pin} from './style';
+import { isEmptyObject } from '../../helpers/isEmptyObject';
 
 interface MapProps{
   searchParamns: ISearch;
@@ -15,6 +16,7 @@ interface MapProps{
 export const Map = ({searchParamns}: MapProps) => {
   const [initialPosition, setinitialPosition] = useState<[number, number]>([0, 0]);
   const [commerces, setCommerces] = useState<ICommerce[]>([])
+  const [commerceSelected, setCommerceSelected] = useState<ICommerce>()
   
   useEffect(() => {
     async function loadPosition() {
@@ -43,13 +45,23 @@ export const Map = ({searchParamns}: MapProps) => {
     }
   },[searchParamns])
 
+  const handleNavigateToDetail = (id: string) => {
+    
+    const commerceFind = commerces.find(commerce => commerce._id === id)
+    if(commerceFind){
+      
+      setCommerceSelected(commerceFind)
+    }
+  }
+
   return (
     <>
-      <VStack flex={1} alignItems="center" px={8} pt={18}>
+      <VStack flex={1} alignItems="center" px={8} pt={1}>
         <VStack style={styles.mapContainer}>
           {initialPosition[0] !== 0 && (
 
             <MapView style={styles.map}
+              provider={PROVIDER_GOOGLE}
               initialRegion={{
                 latitude: initialPosition[0],
                 longitude: initialPosition[1],
@@ -61,7 +73,7 @@ export const Map = ({searchParamns}: MapProps) => {
                 <Marker
                   key={String(commerce._id)}
                   // style={styles.mapMarker}
-                  // onPress={() => handleNavigateToDetail(commerce.id)}
+                  onPress={() => handleNavigateToDetail(commerce._id)}
                   coordinate={{
                     latitude: commerce.address.latitude,
                     longitude: commerce.address.longitude
@@ -74,7 +86,12 @@ export const Map = ({searchParamns}: MapProps) => {
             </MapView>
           )}
         </VStack>
-        <VStack style={styles.title}></VStack>
+        <VStack style={!isEmptyObject(commerceSelected) ? styles.detail : styles.ads}>
+          {!isEmptyObject(commerceSelected) ? (
+            <Text>{commerceSelected.name}</Text>
+          ):null}
+        </VStack>
+        
 
       </VStack>
     </>
@@ -172,4 +189,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 13,
   },
+
+  detail:{
+    height: 200,
+  },
+
+  ads:{
+    height: 50,
+  }
 });
