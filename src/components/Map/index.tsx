@@ -8,6 +8,7 @@ import {commerceClass} from '../../services/Commerces';
 import { ICommerce, ISearch } from '../../@types/interfaces';
 import {Pin} from './style';
 import { isEmptyObject } from '../../helpers/isEmptyObject';
+import { Modal } from '../Modal/index';
 
 interface MapProps{
   searchParamns: ISearch;
@@ -88,7 +89,7 @@ export const Map = ({searchParamns}: MapProps) => {
         </VStack>
         <VStack style={!isEmptyObject(commerceSelected) ? styles.detail : styles.ads}>
           {!isEmptyObject(commerceSelected) ? (
-            <Text>{commerceSelected.name}</Text>
+            <Modal commerce={commerceSelected}/>
           ):null}
         </VStack>
         
