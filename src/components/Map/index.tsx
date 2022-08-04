@@ -55,6 +55,13 @@ export const Map = ({searchParamns}: MapProps) => {
     }
   }
 
+  const handleOpenDetatil = () => {
+  }
+
+  const handleCloseDetatil = () => {
+    setCommerceSelected({} as ICommerce)
+  }
+
   return (
     <>
       <VStack flex={1} alignItems="center" px={8} pt={1}>
@@ -88,7 +95,7 @@ export const Map = ({searchParamns}: MapProps) => {
         </VStack>
         <VStack style={!isEmptyObject(commerceSelected) ? styles.detail : styles.ads}>
           {!isEmptyObject(commerceSelected) ? (
-            <Modal commerce={commerceSelected}/>
+            <Modal commerce={commerceSelected} handleOpenDetatil={handleOpenDetatil}/>
           ):null}
         </VStack>
       </VStack>
