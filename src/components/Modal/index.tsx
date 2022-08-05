@@ -13,7 +13,7 @@ export const Modal = ({commerce, handleOpenDetatil}:ModalProps) =>{
   return(
     <Flex direction='row' justifyContent="center" style={style.container}>
         <Button style={style.expandIconButton} onPress={handleOpenDetatil}>
-          <Image resizeMode="cover" source={require('../../assets/icons/expand.png')} alt="expand image" size={4}/>
+          <Image resizeMode="cover" source={require('../../assets/icons/expand.png')} alt="expand icon" size={4}/>
         </Button>
         <Box height="100%" justifyContent="center">
           <Image source={{
@@ -27,9 +27,13 @@ export const Modal = ({commerce, handleOpenDetatil}:ModalProps) =>{
           <Text color= {"muted.500"} style={style.description}>
             {commerce.descripition}
           </Text>
-          <Text color= {"muted.500"} style={style.phone}>
-            phone: {commerce.phone}
-          </Text>
+          <Box style={style.phoneContainer}>
+            <Image style={style.phoneIcon} resizeMode="cover" source={require('../../assets/icons/phone.png')} alt="phone icon" size={4}/> 
+            <Text color= {"muted.500"} style={style.phone}>
+              {commerce.phone}
+            </Text>
+          </Box>
+          
         </Stack>
     </Flex>
   )
@@ -64,8 +68,8 @@ const style = StyleSheet.create({
   },
   expandIconButton:{
     position: 'absolute',
-    right: 10,
-    top: 4,
+    right: 5,
+    top: -5,
     backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent:'center',
@@ -76,5 +80,13 @@ const style = StyleSheet.create({
   },
   phone:{
     fontSize: 12,
+    justifyContent:'center',
+  },
+  phoneIcon:{
+    marginRight: 5,
+  },
+  phoneContainer:{
+    flexDirection: 'row',
+    alignItems: 'center'
   }
 })
