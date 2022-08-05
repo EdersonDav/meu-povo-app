@@ -1,22 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { useFonts } from '@use-expo/font';
 import { NativeBaseProvider} from 'native-base'
+import { Provider } from 'react-redux';
 
 import { Home } from './src/views/Home'
+import { store } from './src/redux/store'
 
 export default function App() {
-  const [fontsLoaded] = useFonts({
-    'Roboto-Regular': require('./assets/fonts/Roboto/Roboto-Regular.ttf'),
-    'Ubuntu-Bold': require('./assets/fonts/Ubuntu/Ubuntu-Bold.ttf'),
-    'Ubuntu-Regular': require('./assets/fonts/Ubuntu/Ubuntu-Regular.ttf'),
-  });
-
   return (
+    <Provider store={store}>
       <NativeBaseProvider>
         <StatusBar backgroundColor="transparent" translucent />
         <Home/>
       </NativeBaseProvider>
+    </Provider>
   );
 }
