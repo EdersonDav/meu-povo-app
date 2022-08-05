@@ -1,14 +1,23 @@
-import React from 'react';
-import { Box, Stack, Text, Image, Heading, Flex, CloseIcon, Button } from 'native-base';
-import {Dimensions, StyleSheet} from 'react-native'
-import { ICommerce } from '../../@types/interfaces';
+import React, {useEffect} from 'react';
+import { Box, Stack, Text, Image, Heading, Flex, Button } from 'native-base';
+import { Dimensions, StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-interface ModalProps {
-  commerce: ICommerce
-  handleOpenDetatil: () => void;
-}
+import { useSelectCommerce } from '../../redux/sliceSelectedCommerce'
+import { useModal, setOpenModal } from '../../redux/sliceOpenModal'
 
-export const Modal = ({commerce, handleOpenDetatil}:ModalProps) =>{
+export const Modal = () =>{
+  const dispatch = useDispatch();
+  const commerce = useSelector(useSelectCommerce);
+  const modalOpenClose = useSelector(useModal);
+
+  useEffect(()=>{
+    console.log(modalOpenClose ? 'open':'close')
+  },[modalOpenClose])
+
+  const handleOpenDetatil = () =>{
+    dispatch(setOpenModal())
+  }
 
   return(
     <Flex direction='row' justifyContent="center" style={style.container}>
