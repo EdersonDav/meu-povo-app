@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import {StyleSheet} from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { VStack, Flex } from 'native-base';
 
 import { Map } from '../../components/Map';
 import { SelectComponent } from '../../components/Select';
-import { VStack, Flex } from 'native-base';
-import { initialValuesClass } from '../../services/InitialValues';
+import { Modal } from '../../components/Modal';
+
 import { ICategory, ICountry } from '../../@types/interfaces';
-import { selectCommerce, clearSelected, useSelectCommerce } from '../../redux/sliceSelectedCommerce'
-import { setCommerces, clearCommerces, useCommerce } from '../../redux/sliceCommerce'
+
+import { clearSelected } from '../../redux/sliceSelectedCommerce'
+import { setCommerces, clearCommerces } from '../../redux/sliceCommerce'
+
+import { initialValuesClass } from '../../services/InitialValues';
 import { commerceClass } from '../../services/Commerces';
 
 export const Home = () => {
@@ -60,6 +64,7 @@ export const Home = () => {
         />
       </Flex>
       <Map/>
+      <Modal/>
     </VStack>
   )
 }

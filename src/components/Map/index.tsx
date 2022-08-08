@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCommerce, useSelectCommerce } from '../../redux/sliceSelectedCommerce';
 import { Pin } from './style';
 import { isEmptyObject } from '../../helpers/isEmptyObject';
-import { Modal } from '../Modal/index';
+import { FooterDetail } from '../FooterDetail/index';
 import { useCommerce } from '../../redux/sliceCommerce';
 
 export const Map = () => {
@@ -77,7 +77,7 @@ export const Map = () => {
         </VStack>
         <VStack style={!isEmptyObject(commerceSelected) ? styles.detail : styles.ads}>
           {!isEmptyObject(commerceSelected) ? (
-            <Modal/>
+            <FooterDetail/>
           ):null}
         </VStack>
       </VStack>
