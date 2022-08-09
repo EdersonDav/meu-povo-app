@@ -1,0 +1,1 @@
+export const formatValues = (value: any): string => !!value ? String(value) : ''

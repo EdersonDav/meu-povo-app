@@ -8,6 +8,7 @@ export interface ICommerce {
   category: ICategory;
   working_time: string[];
   address: IAddress;
+  nationality: string;
 }
 
 export interface IAddress {

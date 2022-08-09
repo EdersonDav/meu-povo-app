@@ -1,0 +1,1 @@
+export const capitalized = (data: string): string => data.replace(/\w{1}/, (match) => match.toUpperCase())
