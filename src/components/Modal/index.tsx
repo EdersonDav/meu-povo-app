@@ -7,6 +7,7 @@ import { useSelectCommerce } from '../../redux/sliceSelectedCommerce'
 import { useModal, closeModal } from '../../redux/sliceOpenModal';
 
 import { formatObject, IReturnObject, formatValues, capitalized, isEmptyObject } from '../../helpers';
+import { WorkingTime, formatWorkingTime } from '../../helpers/formatWorkingTime';
 
 export const Modal = () => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ export const Modal = () => {
   const commerce = useSelector(useSelectCommerce);
   const [infos, setInfos] = useState<IReturnObject[]>([])
   const [address, setAddress] = useState<IReturnObject[]>([])
+  const [workingTime, setWorkingTime] = useState<WorkingTime[]>([])
 
   useEffect(()=>{
     if(!isEmptyObject(commerce)){
@@ -36,6 +38,7 @@ export const Modal = () => {
   
       setInfos(formatObject(infosObject))
       setAddress(formatObject(addressObject))
+      setWorkingTime(formatWorkingTime(commerce.working_time))
     }
     
 
@@ -81,18 +84,31 @@ export const Modal = () => {
               </Text>
             </VStack>
             <VStack style={style.descriptionContainer}>
-
+              <Text style={style.infoTitles} color={"muted.500"}>Contact</Text>
               {infos.length ? infos.map(item => (
                 <Fragment key={item.label}>
                   {formatDescription(item)}
                 </Fragment>
               )): null}
-
+              <Text style={style.infoTitles} color={"muted.500"}>Address</Text>
               {address.length ? address.map(item => (
                 <Fragment key={item.label}>
                   {formatDescription(item)}
                 </Fragment>
               )): null}
+              <Text style={style.infoTitles} color={"muted.500"}>Working Time</Text>
+              <VStack style={style.weekBoxConatiner}>
+                {workingTime.length ? workingTime.map(item => (
+                  <Box key={item.id} style={style.weekBox}>
+                    <Text style={style.weekTitles}>{item.week}</Text>
+                    <Text style={style.weekHours}>{item.start}</Text>
+                    {/* <VStack style={style.pipe}></VStack> */}
+                    <Text style={style.weekHours}>{item.end}</Text>
+                  </Box>
+                )): null}
+                
+              </VStack>
+              
             </VStack>
           </ModalContainer.Body>
         </ModalContainer.Content>
@@ -132,5 +148,42 @@ const style = StyleSheet.create({
   },
   descriptionContainer:{
 
+  },
+  infoTitles:{
+    fontSize: 16,
+    marginTop: 5,
+    marginBottom: 5,
+    fontWeight: 'bold',
+    borderTopWidth: 1,
+    paddingTop: 10,
+    borderTopColor: '#d5d5d5'
+  },
+  weekBoxConatiner:{
+    flex: 1,
+    flexDirection: 'row',
+    height: 80,
+    justifyContent:'space-between',
+  },
+  weekBox:{
+    backgroundColor: '#e5e5e5',
+    flexDirection: 'column',
+    width: '12%',
+    padding: 1,
+    borderRadius: 10,
+    justifyContent:'center',
+    alignItems:'center'
+  },
+  weekTitles:{
+    fontSize: 12,
+    color:'#212121'
+  },
+  weekHours:{
+    fontSize: 10,
+    color:'#212121'
+  },
+  pipe:{
+    backgroundColor:'#212121',
+    height: 6,
+    width: 1
   }
 })
