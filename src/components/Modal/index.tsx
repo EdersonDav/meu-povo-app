@@ -24,16 +24,15 @@ export const Modal = () => {
         phone: formatValues(commerce.phone),
         site: formatValues(commerce.site),
       }
-  
+
       const addressData = commerce.address
+      const number = formatValues(addressData.address_number)
+      const street = formatValues(addressData.street)
+      const city = formatValues(addressData.city)
+      const info = formatValues(addressData.complement)
+      const code = formatValues(addressData.postalCode)
       const addressObject = {
-        country: formatValues(addressData.country),
-        number: formatValues(addressData.address_number),
-        township: formatValues(addressData.township),
-        street: formatValues(addressData.street),
-        code: formatValues(addressData.postalCode),
-        city: formatValues(addressData.city),
-        complement: formatValues(addressData.complement),
+        locale: `${street} ${number}, ${info}, ${code} ${city}`,
       }
   
       setInfos(formatObject(infosObject))
@@ -49,9 +48,12 @@ export const Modal = () => {
       <>
         {!!data ? (
           <Box style={style.descriptionContent}>
-            <Text color= {"muted.700"} marginRight={1} style={style.description}>
-              {capitalized(data.label)}:
-            </Text>
+            {data.label !== 'locale' ? (
+              <Text color= {"muted.700"} marginRight={1} style={style.description}>
+                {capitalized(data.label)}:
+              </Text>
+            ):null}
+            
           <Text color= {"muted.500"} style={style.description}>
             {data.value}
           </Text>
@@ -99,16 +101,13 @@ export const Modal = () => {
               <Text style={style.infoTitles} color={"muted.500"}>Working Time</Text>
               <VStack style={style.weekBoxConatiner}>
                 {workingTime.length ? workingTime.map(item => (
-                  <Box key={item.id} style={style.weekBox}>
+                  <Box key={item.id} style={item.start === '-' ? style.weekBoxDisable : style.weekBox}>
                     <Text style={style.weekTitles}>{item.week}</Text>
                     <Text style={style.weekHours}>{item.start}</Text>
-                    {/* <VStack style={style.pipe}></VStack> */}
                     <Text style={style.weekHours}>{item.end}</Text>
                   </Box>
                 )): null}
-                
               </VStack>
-              
             </VStack>
           </ModalContainer.Body>
         </ModalContainer.Content>
@@ -119,7 +118,7 @@ export const Modal = () => {
 
 const style = StyleSheet.create({
   modalContent:{
-    paddingHorizontal: 5,
+    paddingHorizontal: 3,
     paddingVertical: 10,
     borderRadius: 15,
     backgroundColor: "#fff",
@@ -140,14 +139,14 @@ const style = StyleSheet.create({
   descriptionContent:{
     flexDirection: 'row',
     alignItems: 'flex-start',
-    paddingRight: 50
+    paddingRight: 30
   },
   modalHeader:{
     justifyContent:'center',
     alignItems:'center'
   },
   descriptionContainer:{
-
+    width:'100%'
   },
   infoTitles:{
     fontSize: 16,
@@ -185,5 +184,15 @@ const style = StyleSheet.create({
     backgroundColor:'#212121',
     height: 6,
     width: 1
+  },
+  weekBoxDisable:{
+    backgroundColor: '#e5e5e5',
+    flexDirection: 'column',
+    width: '12%',
+    padding: 1,
+    borderRadius: 10,
+    justifyContent:'center',
+    alignItems:'center',
+    opacity: .3
   }
 })
