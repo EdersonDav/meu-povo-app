@@ -15,13 +15,10 @@ interface SelectItemProps{
 }
 
 export const SelectComponent = ({label, itens, service, setService,required}: SelectComponentProps) => {
-  const safeAreaProps = useSafeArea({
-    safeAreaTop: true,
-  });
   return(
-    <FormControl maxW="160" m="2" {...safeAreaProps} isRequired={required}>
+    <FormControl maxW="160" m="2" isRequired={required}>
       <FormControl.Label>{label}</FormControl.Label>
-      <Select selectedValue={service} minWidth="150" accessibilityLabel={label} placeholder='-' 
+      <Select selectedValue={service} minWidth="140" accessibilityLabel={label} placeholder='-' 
         _selectedItem={{
           bg: "gray.200",
           endIcon: <CheckIcon size="5"/>,

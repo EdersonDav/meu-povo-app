@@ -4,16 +4,15 @@ export interface WorkingTime {
   end: string,
   id: number
 }
-const weekInglish = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
 
-export const formatWorkingTime = (dates: string[]): WorkingTime[] => {
+export const formatWorkingTime = (dates: string[], weekInglish: string[]): WorkingTime[] => {
   return dates.map((date: string, index) => {
     const start = date ? date.split('-')[0] : '-';
     const end = date ? date.split('-')[1] : '-';
     const time: WorkingTime = {
       end,
       start,
-      week: weekInglish[index],
+      week: weekInglish[index].toUpperCase(),
       id: index
     };
 

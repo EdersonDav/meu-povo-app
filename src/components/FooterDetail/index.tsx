@@ -75,12 +75,13 @@ const style = StyleSheet.create({
     right: 5,
     top: -5,
     backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent:'center',
+    alignItems: 'flex-start',
+    justifyContent:'flex-end',
     flex:1,
-    padding: 0,
-    width: 40,
-    height: 40,
+    paddingTop: 15,
+    width: 50,
+    height: 50,
+    zIndex: 10
   },
   phone:{
     fontSize: 12,

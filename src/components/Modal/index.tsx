@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 
 import { useSelectCommerce } from '../../redux/sliceSelectedCommerce'
 import { useModal, closeModal } from '../../redux/sliceOpenModal';
+import { useLanguages } from '../../redux/sliceLanguages';
 
 import { formatObject, IReturnObject, formatValues, capitalized, isEmptyObject } from '../../helpers';
 import { WorkingTime, formatWorkingTime } from '../../helpers/formatWorkingTime';
@@ -12,6 +13,7 @@ import { WorkingTime, formatWorkingTime } from '../../helpers/formatWorkingTime'
 export const Modal = () => {
   const dispatch = useDispatch();
   const showModal = useSelector(useModal)
+  const language = useSelector(useLanguages)
   const commerce = useSelector(useSelectCommerce);
   const [infos, setInfos] = useState<IReturnObject[]>([])
   const [address, setAddress] = useState<IReturnObject[]>([])
@@ -37,11 +39,17 @@ export const Modal = () => {
   
       setInfos(formatObject(infosObject))
       setAddress(formatObject(addressObject))
-      setWorkingTime(formatWorkingTime(commerce.working_time))
+      setWorkingTime(formatWorkingTime(commerce.working_time, language.weekDays))
     }
     
 
   },[commerce])
+
+  useEffect(()=>{
+    if(!isEmptyObject(commerce)){
+      setWorkingTime(formatWorkingTime(commerce.working_time, language.weekDays))
+    }
+  },[language])
 
   const formatDescription = (data: IReturnObject): JSX.Element =>{
     return(
@@ -50,7 +58,7 @@ export const Modal = () => {
           <Box style={style.descriptionContent}>
             {data.label !== 'locale' ? (
               <Text color= {"muted.700"} marginRight={1} style={style.description}>
-                {capitalized(data.label)}:
+                {capitalized(language[data.label])}:
               </Text>
             ):null}
             
@@ -86,19 +94,19 @@ export const Modal = () => {
               </Text>
             </VStack>
             <VStack style={style.descriptionContainer}>
-              <Text style={style.infoTitles} color={"muted.500"}>Contact</Text>
+              <Text style={style.infoTitles} color={"muted.500"}>{capitalized(language.contact)}</Text>
               {infos.length ? infos.map(item => (
                 <Fragment key={item.label}>
                   {formatDescription(item)}
                 </Fragment>
               )): null}
-              <Text style={style.infoTitles} color={"muted.500"}>Address</Text>
+              <Text style={style.infoTitles} color={"muted.500"}>{capitalized(language.address)}</Text>
               {address.length ? address.map(item => (
                 <Fragment key={item.label}>
                   {formatDescription(item)}
                 </Fragment>
               )): null}
-              <Text style={style.infoTitles} color={"muted.500"}>Working Time</Text>
+              <Text style={style.infoTitles} color={"muted.500"}>{capitalized(language.working_time)}</Text>
               <VStack style={style.weekBoxConatiner}>
                 {workingTime.length ? workingTime.map(item => (
                   <Box key={item.id} style={item.start === '-' ? style.weekBoxDisable : style.weekBox}>
