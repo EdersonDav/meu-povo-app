@@ -26,12 +26,18 @@ export interface IAddress {
 
 export interface ICategory {
   _id: string;
-  name: string;
+  name: {
+    en: string;
+    pt: string;
+  };
   code: string;
 }
 
 export interface ICountry {
-  name: string;
+  name: {
+    en: string;
+    pt: string;
+  };
   code: string;
 }
 

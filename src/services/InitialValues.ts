@@ -7,7 +7,18 @@ class InitialValues {
     try {
       const response = await api.get('category/initial');
 
-      return response.data
+      const categories = response.data.categories
+      const countries = response.data.countries?.length ?
+        response.data.countries.map(item => ({
+          ...item, name: {
+            en: item.name,
+            pt: item.name
+          }
+        })) : []
+      return {
+        categories,
+        countries
+      }
 
     } catch (error) {
       console.log(error.message);

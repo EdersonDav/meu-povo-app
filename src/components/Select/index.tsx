@@ -1,5 +1,7 @@
 import { CheckIcon, Select, useSafeArea, FormControl } from "native-base";
 import React from "react";
+import { useSelector } from "react-redux";
+import { useLanguages } from "../../redux/sliceLanguages";
 
 interface SelectComponentProps{
   itens: SelectItemProps[];
@@ -10,11 +12,15 @@ interface SelectComponentProps{
 }
 
 interface SelectItemProps{
-  name: string;
+  name: {
+    en: string;
+    pt: string;
+  };
   code: string;
 }
 
 export const SelectComponent = ({label, itens, service, setService,required}: SelectComponentProps) => {
+  const language = useSelector(useLanguages);
   return(
     <FormControl maxW="160" m="2" isRequired={required}>
       <FormControl.Label>{label}</FormControl.Label>
@@ -29,7 +35,7 @@ export const SelectComponent = ({label, itens, service, setService,required}: Se
         onValueChange={itemValue => setService(itemValue)}
       >
         {itens?.length ?  itens.map(item =>(
-          <Select.Item label={item.name} value={item.code} key={item.code} />
+          <Select.Item label={item.name[language.buttonLabel]} value={item.code} key={item.code} />
         )) : null}
       </Select>
     </FormControl>

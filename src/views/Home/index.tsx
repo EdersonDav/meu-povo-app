@@ -27,7 +27,10 @@ export const Home = () => {
   useEffect(() => {
     const initialCategory = {
       code:'',
-      name:'all',
+      name:{
+        en: 'all',
+        pt: 'todas'
+      },
       _id:''
     }
     initialValuesClass.getInitialValues().then(res => {
@@ -41,7 +44,6 @@ export const Home = () => {
       dispatch(clearSelected())
       dispatch(clearCommerces())
       commerceClass.searchCommerce(nationality, category).then((res)=>{
-        
         dispatch(setCommerces(res))
       })
     }

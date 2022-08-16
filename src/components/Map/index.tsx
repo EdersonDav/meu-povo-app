@@ -7,7 +7,6 @@ import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectCommerce, useSelectCommerce } from '../../redux/sliceSelectedCommerce';
-import { Pin } from './style';
 import { isEmptyObject } from '../../helpers/isEmptyObject';
 import { FooterDetail } from '../FooterDetail/index';
 import { useCommerce } from '../../redux/sliceCommerce';
@@ -67,8 +66,6 @@ export const Map = () => {
                   latitude: commerce.address.latitude,
                   longitude: commerce.address.longitude
                 }} >
-                <Pin>
-                </Pin>
               </Marker>
             ))}
               
