@@ -1,4 +1,4 @@
-import { InitialValues as IInitialValues } from '../@types/interfaces';
+import { ICountry, InitialValues as IInitialValues } from '../@types/interfaces';
 import { api } from './api';
 
 
@@ -8,8 +8,15 @@ class InitialValues {
       const response = await api.get('category/initial');
 
       const categories = response.data.categories
-      const countries = response.data.countries?.length ?
-        response.data.countries.map(item => ({
+      const commerceCountries = response.data.countries?.commerceCountries?.length ?
+        response.data.countries.commerceCountries.map((item: ICountry) => ({
+          ...item, name: {
+            en: item.name,
+            pt: item.name
+          }
+        })) : []
+      const selfEmployedCountries = response.data.countries?.selfEmployedCountries?.length ?
+        response.data.countries.selfEmployedCountries.map((item: ICountry) => ({
           ...item, name: {
             en: item.name,
             pt: item.name
@@ -17,7 +24,10 @@ class InitialValues {
         })) : []
       return {
         categories,
-        countries
+        countries: {
+          commerceCountries,
+          selfEmployedCountries
+        }
       }
 
     } catch (error) {
@@ -25,7 +35,10 @@ class InitialValues {
 
       return {
         categories: [],
-        countries: []
+        countries: {
+          commerceCountries: [],
+          selfEmployedCountries: []
+        }
       }
     }
   }

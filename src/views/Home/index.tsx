@@ -19,7 +19,8 @@ import { commerceClass } from '../../services/Commerces';
 export const Home = () => {
   const dispatch = useDispatch()
   const [categories, setCategories] = useState<ICategory[]>()
-  const [countries, setCountries] = useState<ICountry[]>([])
+  const [commerceCountries, setCommerceCountries] = useState<ICountry[]>([])
+  const [selfEmployedCountries, setSelfEmployedCountries] = useState<ICountry[]>([])
   const [nationality, setNationality] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const language = useSelector(useLanguages);
@@ -35,7 +36,8 @@ export const Home = () => {
     }
     initialValuesClass.getInitialValues().then(res => {
       setCategories([...res.categories, initialCategory]);
-      setCountries(res.countries)
+      setCommerceCountries(res.countries.commerceCountries)
+      setSelfEmployedCountries(res.countries.selfEmployedCountries)
     });
   },[]);
 
@@ -67,7 +69,7 @@ export const Home = () => {
 
         <SelectComponent 
           label="Commerce country" 
-          itens={countries}
+          itens={commerceCountries}
           service={nationality}
           setService={setNationality}
           required={true}

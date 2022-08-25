@@ -43,7 +43,10 @@ export interface ICountry {
 
 export interface InitialValues {
   categories: ICategory[];
-  countries: ICountry[];
+  countries: {
+    commerceCountries: ICountry[];
+    selfEmployedCountries: ICountry[];
+  };
 }
 
 export interface ISearch {
