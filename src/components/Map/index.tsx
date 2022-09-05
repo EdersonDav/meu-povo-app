@@ -5,6 +5,7 @@ import { VStack } from 'native-base';
 import Constants from 'expo-constants';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useDispatch, useSelector } from 'react-redux';
+import { AdMobBanner } from 'expo-ads-admob';
 
 import { selectCommerce, useSelectCommerce } from '../../redux/sliceSelectedCommerce';
 import { isEmptyObject } from '../../helpers/isEmptyObject';
@@ -77,6 +78,14 @@ export const Map = () => {
             <FooterDetail/>
           ):null}
         </VStack>
+        <VStack style={styles.ads}>
+          <AdMobBanner
+            bannerSize="fullBanner"
+            adUnitID="ca-app-pub-3940256099942544/6300978111"
+            servePersonalizedAds
+          />
+        </VStack>
+        
       </VStack>
     </>
   );
@@ -108,6 +117,8 @@ const styles = StyleSheet.create({
   },
 
   ads:{
-    height: 50,
+    paddingHorizontal:0,
+    height: 60,
+    width: '100%',
   }
 });
