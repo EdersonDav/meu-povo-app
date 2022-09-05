@@ -73,7 +73,7 @@ export const Map = () => {
             </MapView>
           )}
         </VStack>
-        <VStack style={!isEmptyObject(commerceSelected) ? styles.detail : styles.ads}>
+        <VStack style={!isEmptyObject(commerceSelected) ? styles.detail : styles.notDetail}>
           {!isEmptyObject(commerceSelected) ? (
             <FooterDetail/>
           ):null}
@@ -113,12 +113,18 @@ const styles = StyleSheet.create({
   },
 
   detail:{
-    height: 200,
+    height: 180,
+  },
+
+  notDetail:{
+    height: 30,
   },
 
   ads:{
     paddingHorizontal:0,
-    height: 60,
+    height: 65,
     width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center'
   }
 });
